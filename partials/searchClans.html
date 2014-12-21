@@ -1,0 +1,42 @@
+<div ng-switch on="clans.status" style="clear:both;">
+    <div class="alert alert-danger" role="alert" ng-switch-when="error">
+        <h4>{{clans.status | uppercase}}</h4>
+    </div>
+
+    <div ng-switch-default>
+        <h2>Clans</h2>
+        <p ng-if="clans.data">Found a total of <b>{{clans.count}}</b> clans</p>
+        <div class="table-responsive">
+          <table class="table" ng-if="clans.data">
+              <tr class="animate-repeat" ng-repeat="clan in clans.data">
+                  <td class="clan-image" style="width:70px"><img ng-src="{{clan.emblems.large}}" alt="{{clan.name}}" /></td>
+                  <td>
+                      <h3><a href="#clan/{{clan.abbreviation}}/{{clan.clan_id}}">{{clan.abbreviation}}</a> {{clan.name}}</h3>
+                      {{clan.description_html}}
+                      <em>{{clan.motto}}</em>
+                      <p>
+                          <b><a href="#clan/{{clan.abbreviation}}/{{clan.clan_id}}">{{clan.members_count}} players</a></b> and the owner is <a href="#player/{{clan.owner_name}}/{{clan.owner_id}}">{{clan.owner_name}}</a> created {{clan.created_at | fromNow}}
+                      </p>
+                  </td>
+              </tr>
+          </table> <!-- /table -->
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="clanModal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        <h4 class="modal-title"><span>{{clan.name}}</span></h4>
+      </div>
+      <div class="modal-body">
+        ...
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->

@@ -1,0 +1,11 @@
+# humanstxt.org/
+# The humans responsible & technology colophon
+
+# TEAM
+
+    Bruno Alexandre -- Role: <developer> -- Twitter: <balexandre>
+
+# TECHNOLOGY COLOPHON
+
+    HTML5, CSS3
+    AngularJs, jQuery, Modernizr

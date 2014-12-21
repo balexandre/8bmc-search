@@ -1,0 +1,23 @@
+
+<p class="back-button"><a href="javascript:history.back(-1);"><i class="fa fa-angle-left"></i>&nbsp;go back</a></p>
+
+
+<div class="row" style="clear: both;">
+	<div class="col-md-2 col-sm-2 col-lg-1">
+		<!-- {{clan.clan_id | emblemUrl}} -->
+		<img ng-src="{{clan.emblems.large}}" style="margin: 20px;" />
+	</div>
+	<div class="col-md-10 col-sm-10">
+		<h2>[{{clan.abbreviation}}] <small>{{clan.name}}</a></small></h2>
+		<p>{{clan.motto}}</p>
+	</div>
+</div>
+
+
+<p>&nbsp;</p>
+
+<div role="tabpanel">
+
+  <div ng-include="'partials/clanInfo-details.html'"></div>
+
+</div>

@@ -1,0 +1,10 @@
+
+<p class="back-button"><a href="javascript:history.back(-1);"><i class="fa fa-angle-left"></i>&nbsp;go back</a></p>
+<h2>{{player.nickname}} <small><a href="#/clan/{{clan.abbreviation}}/{{clan.clan_id}}" ng-if="clan">[{{clan.abbreviation}}]</a></small></h2>
+<p>&nbsp;</p>
+
+<div role="tabpanel">
+
+  <div ng-include="'partials/playerInfo-details.html'"></div>
+
+</div>

@@ -1,0 +1,106 @@
+<div class="row">
+	<div class="col-md-12">
+        <p class="updated">Information updated {{player.updated_at | fromNow}}</p>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-4">
+        <h2>Information</h2>
+        
+        <div class="table-responsive">
+        <table class="table">
+            <tr>
+                <td>Account ID</td>
+                <td>{{player.account_id}} <a class="pull-right" data-placement="top" href="http://worldoftanks.eu/community/accounts/{{player.account_id}}-{{player.nickname}}/" target="_blank" title="See WoT player page"><i class="fa fa-external-link"></i></a></td>
+            </tr>
+            <tr ng-show="player.clan_id">
+                <td>Clan ID</td>
+                <td><a href="#/clan/{{clan.abbreviation}}/{{clan.clan_id}}">{{player.clan_id}}</a> <a class="pull-right" data-placement="top" href="http://eu.wargaming.net/clans/{{player.clan_id}}/" target="_blank" title="See WoT clan page"><i class="fa fa-external-link"></i></a></td>
+            </tr>
+            <tr>
+                <td>Client language</td>
+                <td class="f16"><i class="flag {{player.client_language}}"></i>&nbsp;&nbsp;{{player.client_language}}</td>
+            </tr>
+            <tr>
+                <td>Created at</td>
+                <td>{{player.created_at | fromNow}}</td>
+            </tr>
+            <tr>
+                <td>Last battle</td>
+                <td>{{player.last_battle_time | fromNow}}</td>
+            </tr>
+            <tr>
+                <td>Logout at</td>
+                <td>{{player.logout_at | fromNow}}</td>
+            </tr>
+            <tr>
+                <td>Global rating</td>
+                <td>{{player.global_rating | number}}</td>
+            </tr>
+        </table></div>
+    </div>
+    <div class="col-md-4">
+        <h2>Statistics</h2>
+
+        <div class="table-responsive">
+        <table class="table">
+            <tr>
+                <td>Max damage</td>
+                <td class="text-center">{{player.statistics.max_damage | number}}</td>
+                <td>
+                	<a href="javascript:void;" class="pop" data-container="body" data-toggle="popover" data-trigger="hover" data-placement="top" 
+            		   data-content="<img src='{{tanks.max_damage_tank.image}}' />" data-html="true">
+                		{{tanks.max_damage_tank.name_i18n}} ({{tanks.max_damage_tank.level}})</a>
+                </td>
+            </tr>
+            <tr>
+                <td>Max kills in battle</td>
+                <td class="text-center">{{player.statistics.max_frags | number}}</td>
+                <td>
+                	<a href="javascript:void;" class="pop" data-container="body" data-toggle="popover" data-trigger="hover" data-placement="top" 
+            		   data-content="<img src='{{tanks.max_frags_tank.image}}' />" data-html="true">
+                		{{tanks.max_frags_tank.name_i18n}} ({{tanks.max_frags_tank.level}})</a></td>
+            </tr>
+            <tr>
+                <td>Max Experience ID</td>
+                <td class="text-center">{{player.statistics.max_xp | number}}</td>
+                <td>
+                	<a href="javascript:void;" class="pop" data-container="body" data-toggle="popover" data-trigger="hover" data-placement="top" 
+            		   data-content="<img src='{{tanks.max_xp_tank.image}}' />" data-html="true">
+                		{{tanks.max_xp_tank.name_i18n}} ({{tanks.max_xp_tank.level}})</a></td>
+            </tr>
+        </table></div>
+        <p>&nbsp;</p>
+
+        <h4>Win rates</h4>
+        <div class="table-responsive">
+        <table class="table">
+            <tr>
+                <td>Global</td>
+                <td>{{player.statistics.all.battles | kilos}}</td>
+                <td>{{player.statistics.all.wins / player.statistics.all.battles | percentage}}</td>
+            </tr>
+            <tr ng-show="player.clan_id">
+                <td>Clan battles</td>
+                <td>{{player.statistics.clan.battles | kilos}}</td>
+                <td>{{player.statistics.clan.wins / player.statistics.clan.battles | percentage}}</td>
+            </tr>
+            <tr>
+                <td>Company battles</td>
+                <td>{{player.statistics.company.battles | kilos}}</td>
+                <td>{{player.statistics.company.wins / player.statistics.company.battles | percentage}}</td>
+            </tr>
+            <tr>
+                <td>Historical battles</td>
+                <td>{{player.statistics.historical.battles | kilos}}</td>
+                <td>{{player.statistics.historical.wins / player.statistics.historical.battles | percentage}}</td>
+            </tr>
+        </table></div>
+	</div>
+    <div class="col-md-4">
+        <h2>Vehicles <small>in the garage</small></h2>
+
+        <em class="darker">Current issues with Wargamming API prevents showing this information.</em>
+    </div>
+</div>
