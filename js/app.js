@@ -43,7 +43,7 @@
     	}])
         .filter('percentage', ['$filter', function ($filter) {
     	  return function (input, decimals) {
-    	    return ($filter('number')(input * 100, decimals) || 0) + '%';
+    	    return ($filter('number')((input * 100).toFixed(2), decimals) || 0) + '%';
     	  };
     	}])
         .filter('kilos', ['$filter', function ($filter) {
