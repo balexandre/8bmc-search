@@ -6,22 +6,22 @@
 	
 	var app = angular.module('wotSearchApp');
 
-	var ClanInfoController = function($scope, $location, $routeParams, wotSearch) {
+	var ClanInfoController = function($scope, $log, $routeParams, wotSearch) {
 
 		// error
 		var onError = function(reason) {
+			$log.error(reason);
 			$scope.error = "Could not fetch information";
-			loading(false);
 		};
 
 		var onClanComplete = function(response) {
-			console.log("onClanComplete");
-			console.log(response);
-			$scope.clan = response;
-
-			if(response.status !== "ok") {
-				$scope.clan.error = response.error;
-			}
+			$log.info("onClanComplete");
+			$log.info(response);
+			$scope.clan = response.data[Object.keys(response.data)[0]];
+			
+			// bootstrap calls
+			$('.pop').popover();
+			$("a[title]").tooltip();
 		};
 
 		var getClanInformation = function(clanId) {
@@ -30,10 +30,11 @@
 
 		$scope.clan = null;
 
-		getClanInformation($routeParams.clanid);
+		var clanId = $routeParams.clanid;
+		getClanInformation(clanId);
     };
 
     app.controller("ClanInfoController", [
-    	"$scope", "$location", "$routeParams", "wotSearch", ClanInfoController]);
+    	"$scope", "$log", "$routeParams", "wotSearch", ClanInfoController]);
 
 }());

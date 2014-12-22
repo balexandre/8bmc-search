@@ -6,10 +6,10 @@
     </div>
 
     <div ng-switch-default>
-        <h2>Players <small ng-if="players.data">found a total of <b>{{players.count}}</b> players, only <b>{{players.data | goodrating}}</b> have activity.</small></h2>
+        <h2>Players <small ng-if="players">found a total of <b>{{players.length}}</b> players, only <b>{{players | goodrating}}</b> have activity.</small></h2>
         <!--<p ng-if="players.data">Found a total of <b>{{players.count}}</b> players</p>-->
         <div class="table-responsive">
-            <table class="table" ng-if="players.data">
+            <table class="table" ng-if="players">
                 <thead>
                     <tr>
                         <th>Nickname</th>
@@ -20,11 +20,11 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr ng-show="player.extraInfo.global_rating" class="animate-repeat" ng-repeat="player in players.data | orderBy:playerSortOrder">
+                    <tr ng-show="player.extraInfo.global_rating" class="animate-repeat" ng-repeat="player in players | orderBy:playerSortOrder">
                         <td class="f16">
                             <i class="flag {{player.extraInfo.client_language}}"></i>
                             <b><a href="#/player/{{player.nickname}}/{{player.account_id}}">{{player.nickname}}</a></b> 
-                            <a href="#/clan/{{player.clanInfo.clan_id}}" ng-if="player.clanInfo">[{{player.clanInfo.abbreviation}}]</a>
+                            <a href="#/clan/{{player.clanInfo.abbreviation}}/{{player.clanInfo.clan_id}}" ng-if="player.clanInfo">[{{player.clanInfo.abbreviation}}]</a>
                         </td>
                         <td class="text-right">{{player.extraInfo.statistics.all.wins / player.extraInfo.statistics.all.battles | percentage:2}} ({{player.extraInfo.statistics.all.battles | kilos}})</td>
                         <td class="text-right">?</td>
@@ -36,20 +36,3 @@
         </div>
     </div>
 </div>
-
-<div class="modal fade" id="playerModal">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-        <h4 class="modal-title"><span>{{player.name}}</span></h4>
-      </div>
-      <div class="modal-body">
-        ...
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-      </div>
-    </div><!-- /.modal-content -->
-  </div><!-- /.modal-dialog -->
-</div><!-- /.modal -->
