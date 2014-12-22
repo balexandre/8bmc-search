@@ -19,7 +19,7 @@
 		var onClanComplete = function (response) {
 			$log.info("clan data");
 			$log.info(response);
-			$scope.clan = response.data[Object.keys(response.data)[0]];;
+			$scope.clan = response.data[Object.keys(response.data)[0]];
 		};
 		var onTankComplete = function (response) {
 			$log.info("tank data");
@@ -29,9 +29,31 @@
 			$scope.tanks.max_frags_tank = $scope.tanks[$scope.player.statistics.max_frags_tank_id];
 			$scope.tanks.max_damage_tank = $scope.tanks[$scope.player.statistics.max_damage_tank_id];
 
+			// attach extra info to garage tanks
+			for(var i=0;i<$scope.garage.length;i++) {
+				var tId = $scope.garage[i].tank_id,
+					tank = $scope.tanks[tId];
+
+				$scope.garage[i].extraInfo = tank;
+			}
+
 			// bootstrap calls
 			$('.pop').popover();
 			$("a[title]").tooltip();
+		};
+		var onPlayerTanksComplete = function(response) {
+			$log.info("player tanks data");
+			$log.info(response);
+			$scope.garage = response.data[Object.keys(response.data)[0]];
+
+			// all tanks from players inventory
+			var tanks = [];
+			for(var i=0;i<$scope.garage.length;i++)
+				tanks.push($scope.garage[i].tank_id);
+
+			if (tanks.length > 0) {
+				wotSearch.getTank(tanks.join()).then(onTankComplete, onError);
+			}
 		};
 		var onPlayerComplete = function (response) {
 			$log.info("player data");
@@ -43,18 +65,8 @@
 				wotSearch.getClan($scope.player.clan_id).then(onClanComplete, onError);
 			}
 
-			// get tanks information for max_damage, max_frags and max_xp
-			var tanks = [];
-			if ($scope.player.statistics.max_damage_tank_id)
-				tanks.push($scope.player.statistics.max_damage_tank_id);
-			if ($scope.player.statistics.max_frags_tank_id)
-				tanks.push($scope.player.statistics.max_frags_tank_id);
-			if ($scope.player.statistics.max_xp_tank_id)
-				tanks.push($scope.player.statistics.max_xp_tank_id);
-
-			if (tanks.length > 0) {
-				wotSearch.getTank(tanks.join()).then(onTankComplete, onError);
-			}
+			// get all players vehicles
+			wotSearch.getPlayerTanks($scope.player.account_id).then(onPlayerTanksComplete, onError);
 		};
 
 		var getPlayerInformation = function (accountId) {

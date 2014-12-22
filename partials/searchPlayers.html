@@ -13,21 +13,24 @@
                 <thead>
                     <tr>
                         <th>Nickname</th>
-                        <th class="text-right">Win rate (battles)</th>
-                        <th class="text-right">WN8 <a href="http://wiki.wnefficiency.net/pages/WN8#The_Steps_of_WN8_-_The_Formula" target="_blank">formula</a></th>
+                        <th>Global rating</th>
+                        <th class="text-center">Win rate (battles)</th>
+                        <th class="text-center">WN8 <a href="http://wiki.wnefficiency.net/pages/WN8#The_Steps_of_WN8_-_The_Formula" target="_blank">formula</a></th>
                         <th>Last battle</th>
                         <th></th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr ng-show="player.extraInfo.global_rating" class="animate-repeat" ng-repeat="player in players | orderBy:playerSortOrder">
+                    <tr ng-show="player.extraInfo.global_rating" class="animate-repeat"
+                        ng-repeat="player in players | orderBy:playerSortOrder">
                         <td class="f16">
                             <i class="flag {{player.extraInfo.client_language}}"></i>
                             <b><a href="#/player/{{player.nickname}}/{{player.account_id}}">{{player.nickname}}</a></b> 
                             <a href="#/clan/{{player.clanInfo.abbreviation}}/{{player.clanInfo.clan_id}}" ng-if="player.clanInfo">[{{player.clanInfo.abbreviation}}]</a>
                         </td>
-                        <td class="text-right">{{player.extraInfo.statistics.all.wins / player.extraInfo.statistics.all.battles | percentage:2}} ({{player.extraInfo.statistics.all.battles | kilos}})</td>
-                        <td class="text-right">?</td>
+                        <td>{{player.extraInfo.global_rating | number}}</td>
+                        <td class="text-center">{{player.extraInfo.statistics.all.wins / player.extraInfo.statistics.all.battles | percentage:2}} ({{player.extraInfo.statistics.all.battles | kilos}})</td>
+                        <td class="text-center">?</td>
                         <td>{{player.extraInfo.last_battle_time | fromNow}}</td>
                         <td><a href="http://worldoftanks.eu/community/accounts/{{player.account_id}}-{{player.nickname}}/" target="_blank" title="See WoT player page"><i class="fa fa-external-link"></i></a></td>
                     </tr>
