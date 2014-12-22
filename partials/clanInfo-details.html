@@ -1,3 +1,8 @@
+<div ng-show="error" class="alert alert-warning">
+    <h4>Error</h4>
+    <em>{{error.message}}</em>
+</div>
+
 <div class="row">
 	<div class="col-md-12">
         <p class="updated">Information updated {{clan.updated_at | fromNow}}</p>
@@ -5,14 +10,14 @@
 </div>
 
 <div class="row">
-    <div class="col-md-6">
+    <div class="col-md-4">
         <h2>Information</h2>
 
         <div class="table-responsive">
         <table class="table">
             <tr>
                 <td>Clan ID</td>
-                <td>{{clan.clan_id}} <a class="pull-right" data-placement="top" href="http://eu.wargaming.net/clans/{{clan.clan_id}}/" target="_blank" title="See WoT clan page"><i class="fa fa-external-link"></i></a></td>
+                <td>{{clan.clan_id}}&nbsp;&nbsp;<a data-placement="top" href="http://eu.wargaming.net/clans/{{clan.clan_id}}/" target="_blank" title="See WoT clan page"><i class="fa fa-external-link"></i></a></td>
             </tr>
             <tr>
                 <td>Created at</td>
@@ -28,18 +33,19 @@
                 </td>
             </tr>
             <tr>
-                <td>Description</td>
-                <td><div ng-bind-html-unsafe="">{{clan.description}}</div></td>
+                <td colspan="2"><div ng-bind-html-unsafe="">{{clan.description}}</div></td>
             </tr>
         </table></div>
     </div>
-    <div class="col-md-6">
+    <div class="col-md-8">
         <h2>Military Personnel <small>({{clan.members_count}})</small></h2>
 
         <div class="table-responsive">
         <table class="table">
             <thead>
                 <tr>
+                    <th>ID</th>
+                    <th></th>
                     <th>Player</th>
                     <th>Position</th>
                     <th>Since</th>
@@ -47,6 +53,10 @@
             </thead>
             <tbody>
                 <tr ng-class="{warning: clan.owner_id == member.account_id}" ng-repeat="member in clan.members">
+                    <td>{{member.account_id}}</td>
+                    <td class="f16">
+                        <i class="flag {{extraInfo[member.account_id].client_language}}"></i> {{extraInfo[member.account_id].client_language}}
+                    </td>
                     <td>
                         <span ng-show="clan.owner_id == member.account_id"><i class="fa fa-star" title="Clan Owner"></i>&nbsp;</span>
                         <a href="#/player/{{member.account_name}}/{{member.account_id}}">{{member.account_name}}</a> <span ng-show="clan.owner_id == member.account_id">(owner)</span></td>

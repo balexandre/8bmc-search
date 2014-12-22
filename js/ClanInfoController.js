@@ -14,11 +14,31 @@
 			$scope.error = "Could not fetch information";
 		};
 
+		var onPlayerLanguageComplete = function(response){
+			$log.info("onPlayerLanguageComplete");
+			$log.info(response);
+
+			if(response.status === "ok") {
+				$scope.extraInfo = response.data;
+			} else {
+				$log.error(response.error);
+				$scope.error = response.error;
+			}
+		};
+
 		var onClanComplete = function(response) {
 			$log.info("onClanComplete");
 			$log.info(response);
 			$scope.clan = response.data[Object.keys(response.data)[0]];
-			
+
+			// let's get more info for each returned player
+			var playerIds = [];
+			for (var i = 0; i < Object.keys($scope.clan.members).length; i++) {
+				var playerId = Object.keys($scope.clan.members)[i];
+				playerIds.push(playerId);
+			}
+			wotSearch.getPlayerLanguage(playerIds.join()).then(onPlayerLanguageComplete, onError);
+
 			// bootstrap calls
 			$('.pop').popover();
 			$("a[title]").tooltip();
