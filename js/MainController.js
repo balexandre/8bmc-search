@@ -6,7 +6,7 @@
 	
 	var app = angular.module('wotSearchApp');
 
-	var MainController = function($scope, $http, $location, $routeParams) {
+	var MainController = function($scope, $location) {
 
 		$scope.sClans = function(searchExpression) {
 			$location.path("/clans/" + searchExpression);
@@ -20,6 +20,6 @@
 		
     };
 
-    app.controller("MainController", ["$scope", "$http", "$location", "$routeParams", MainController]);
+    app.controller("MainController", ["$scope", "$location", MainController]);
 
 }());

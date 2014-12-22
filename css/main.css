@@ -3,87 +3,106 @@
    ========================================================================== */
 
 body {
-	font: 300 21px Lato, 'Helvetica Neue', Helvetica, Arial, sans-serif;
-	color: #ddd;
-	background-color: #333;
-	border-top: 5px solid #fc0;
-	/*
-	-webkit-box-shadow: inset 0 3px 30px rgba(0,0,0,0.3);
-	-moz-box-shadow: inset 0 3px 30px rgba(0,0,0,0.3);
-	box-shadow: inset 0 3px 30px rgba(0,0,0,0.3);*/
-	text-shadow: 0 1px 3px rgba(0,0,0,0.5);
+    font: 300 21px Lato, 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    color: #ddd;
+    background-color: #333;
+    border-top: 5px solid #fc0;
+    /*
+    -webkit-box-shadow: inset 0 3px 30px rgba(0,0,0,0.3);
+    -moz-box-shadow: inset 0 3px 30px rgba(0,0,0,0.3);
+    box-shadow: inset 0 3px 30px rgba(0,0,0,0.3);*/
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
 }
+
 .search-box {
-	background-color: #3F1F1F;
-	color: #fff;
-	margin: -7px 0;
-	-webkit-box-shadow: inset 0 3px 10px rgba(0,0,0,0.4);
-	-moz-box-shadow: inset 0 3px 10px rgba(0,0,0,0.4);
-	box-shadow: inset 0 3px 10px rgba(0,0,0,0.4);
+    background-color: #3F1F1F;
+    color: #fff;
+    margin: -7px 0;
+    -webkit-box-shadow: inset 0 3px 10px rgba(0, 0, 0, 0.4);
+    -moz-box-shadow: inset 0 3px 10px rgba(0, 0, 0, 0.4);
+    box-shadow: inset 0 3px 10px rgba(0, 0, 0, 0.4);
 }
+
 .search-box form {
-margin: 20px 0;
-padding: 0;
-text-shadow: none;
+    margin: 20px 0;
+    padding: 0;
+    text-shadow: none;
 }
-
-
 
 a:hover {
-color: #f90;
-}
-a:active, a:hover {
-outline: 0;
-text-decoration: none;
-}
-a {
-color: #fc0;
-text-decoration: none;
--webkit-transition: all 0.25s;
--moz-transition: all 0.25s;
--o-transition: all 0.25s;
-transition: all 0.25s;
-}
-a {
-background-color: transparent;
+    color: #f90;
 }
 
+a:active, a:hover {
+    outline: 0;
+    text-decoration: none;
+}
+
+a {
+    color: #fc0;
+    text-decoration: none;
+    -webkit-transition: all 0.25s;
+    -moz-transition: all 0.25s;
+    -o-transition: all 0.25s;
+    transition: all 0.25s;
+}
+
+a {
+    background-color: transparent;
+}
 
 .intro {
 }
+
 .intro h1 {
-	font-size: 28px;
-line-height: 22px;
-	margin: 0;
-padding: 20px 0;
-}
-.intro h1 small {
-	font-size: 12px;
-	line-height: 1em;
-	margin: 0;
+    font-size: 28px;
+    line-height: 22px;
+    margin: 0;
+    padding: 20px 0;
 }
 
+.intro h1 small {
+    font-size: 12px;
+    line-height: 1em;
+    margin: 0;
+}
 
 td {
-font-size: 14px;
+    font-size: 14px;
 }
-.table>tbody>tr>td.clan-image {vertical-align: middle;}
-th {
-font-size: 16px;
-}
-th a {font-size: 10px;}
 
-.updated{font-size: 12px;
-border-bottom: 1px #888 solid;
-padding-bottom: 10px;
+.table > tbody > tr > td.clan-image {
+    vertical-align: middle;
 }
-.darker {color: #777;}
-.back-button{
-margin-top: 32px;
-font-size: 16px;
-float:right;
-}span.epaulettes img {
-width: 28px;
-}.table>thead>tr>td.warning, .table>tbody>tr>td.warning, .table>tfoot>tr>td.warning, .table>thead>tr>th.warning, .table>tbody>tr>th.warning, .table>tfoot>tr>th.warning, .table>thead>tr.warning>td, .table>tbody>tr.warning>td, .table>tfoot>tr.warning>td, .table>thead>tr.warning>th, .table>tbody>tr.warning>th, .table>tfoot>tr.warning>th {
-background-color: #666;
+
+th {
+    font-size: 16px;
+}
+
+th a {
+    font-size: 10px;
+}
+
+.updated {
+    font-size: 12px;
+    border-bottom: 1px #888 solid;
+    padding-bottom: 10px;
+}
+
+.darker {
+    color: #777;
+}
+
+.back-button {
+    margin-top: 32px;
+    font-size: 16px;
+    float: right;
+}
+
+span.epaulettes img {
+    width: 28px;
+}
+
+.table > thead > tr > td.warning, .table > tbody > tr > td.warning, .table > tfoot > tr > td.warning, .table > thead > tr > th.warning, .table > tbody > tr > th.warning, .table > tfoot > tr > th.warning, .table > thead > tr.warning > td, .table > tbody > tr.warning > td, .table > tfoot > tr.warning > td, .table > thead > tr.warning > th, .table > tbody > tr.warning > th, .table > tfoot > tr.warning > th {
+    background-color: #666;
 }

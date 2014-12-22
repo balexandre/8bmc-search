@@ -43,7 +43,7 @@
     	}])
         .filter('percentage', ['$filter', function ($filter) {
     	  return function (input, decimals) {
-    	    return ($filter('number')(input * 100, decimals) || 0) + '%';
+    	    return ($filter('number')((input * 100).toFixed(2), decimals) || 0) + '%';
     	  };
     	}])
         .filter('kilos', ['$filter', function ($filter) {
@@ -62,11 +62,12 @@
         }])
         .filter('emblemUrl', ['$filter', function ($filter) {
           return function (input) {
-            var c;
-            try{ 
-                c = "http://eu.wargaming.net/clans/media/clans/emblems/cl_" + input.slice(input.length-3) + "/" + input + "/emblem_195x195.png"; 
+            var url = "";
+            try{
+                var lastThree = input.slice(input.length-3);
+                url = "http://eu.wargaming.net/clans/media/clans/emblems/cl_" + lastThree + "/" + input + "/emblem_195x195.png";
             } catch(e) {}
-            return c;
+            return url;
           };
         }])  
         .filter('lowerAndNoSpaces', ['$filter', function ($filter) {

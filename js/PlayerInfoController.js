@@ -3,72 +3,84 @@
 */
 
 (function() {
-	// http://eu.wargaming.net/developers/api_explorer/wot/account/info/?application_id=demo&account_id=501164685,515094889&http_method=GET&run=1
-    
+
 	var app = angular.module('wotSearchApp');
 
-	var PlayerInfoController = function($scope, $location, $routeParams, wotSearch) {
+	var PlayerInfoController = function ($scope, $log, $routeParams, wotSearch) {
 
 		var nickname = $routeParams.nickname,
-		   accountid = $routeParams.accountid,
-		      urlTpl = "#/player/" + nickname + "/:" + accountid + "/info";
+			accountId = $routeParams.accountid,
+			urlTpl = "#/player/" + nickname + "/:" + accountId + "/info";
 
-		var onError = function(reason) {
+		var onError = function (reason) {
+			$log.error(reason);
 			$scope.error = reason;
 		};
-		var onPlayerComplete = function(data) {
-			console.log("player data");
-			console.log(data);
-			$scope.player = data;
+		var onClanComplete = function (response) {
+			$log.info("clan data");
+			$log.info(response);
+			$scope.clan = response.data[Object.keys(response.data)[0]];
+		};
+		var onTankComplete = function (response) {
+			$log.info("tank data");
+			$log.info(response);
+			$scope.tanks = response.data;
+			$scope.tanks.max_xp_tank = $scope.tanks[$scope.player.statistics.max_xp_tank_id];
+			$scope.tanks.max_frags_tank = $scope.tanks[$scope.player.statistics.max_frags_tank_id];
+			$scope.tanks.max_damage_tank = $scope.tanks[$scope.player.statistics.max_damage_tank_id];
 
-			if(data.clan_id) {
-				// player has a clan, let's get the information
-				wotSearch.getClan(data.clan_id).then(onClanComplete, onError);
+			// attach extra info to garage tanks
+			for(var i=0;i<$scope.garage.length;i++) {
+				var tId = $scope.garage[i].tank_id,
+					tank = $scope.tanks[tId];
+
+				$scope.garage[i].extraInfo = tank;
 			}
 
-			var tanks = [];
-			if($scope.player.statistics.max_damage_tank_id) 
-				tanks.push($scope.player.statistics.max_damage_tank_id);
-			if($scope.player.statistics.max_frags_tank_id) 
-				tanks.push($scope.player.statistics.max_frags_tank_id);
-			if($scope.player.statistics.max_xp_tank_id) 
-				tanks.push($scope.player.statistics.max_xp_tank_id);
-
-			if(tanks.length > 0) {
-				console.log("tanks data");
-				console.log(tanks.join());
-				wotSearch.getTank(tanks.join()).then(onTankComplete, onError);	
-			}
-		};
-		var onClanComplete = function(data) {
-			console.log("clan data");
-			console.log(data);
-			$scope.clan = data;
-		};
-		var onTankComplete = function(data) {
-			console.log("tank data");
-			console.log(data);
-			$scope.tanks = data;
-			$scope.tanks.max_xp_tank = data[$scope.player.statistics.max_xp_tank_id];
-			$scope.tanks.max_frags_tank = data[$scope.player.statistics.max_frags_tank_id];
-			$scope.tanks.max_damage_tank = data[$scope.player.statistics.max_damage_tank_id];
-
+			// bootstrap calls
 			$('.pop').popover();
-			$(".tooltip").tooltip();
+			$("a[title]").tooltip();
+		};
+		var onPlayerTanksComplete = function(response) {
+			$log.info("player tanks data");
+			$log.info(response);
+			$scope.garage = response.data[Object.keys(response.data)[0]];
+
+			// all tanks from players inventory
+			var tanks = [];
+			for(var i=0;i<$scope.garage.length;i++)
+				tanks.push($scope.garage[i].tank_id);
+
+			if (tanks.length > 0) {
+				wotSearch.getTank(tanks.join()).then(onTankComplete, onError);
+			}
+		};
+		var onPlayerComplete = function (response) {
+			$log.info("player data");
+			$log.info(response);
+			$scope.player = response.data[Object.keys(response.data)[0]];
+
+			if ($scope.player.clan_id) {
+				// player has a clan, let's get the information
+				wotSearch.getClan($scope.player.clan_id).then(onClanComplete, onError);
+			}
+
+			// get all players vehicles
+			wotSearch.getPlayerTanks($scope.player.account_id).then(onPlayerTanksComplete, onError);
 		};
 
-		var getPlayerInformation = function(accountid) {
-			wotSearch.getPlayer(accountid).then(onPlayerComplete, onError);
+		var getPlayerInformation = function (accountId) {
+			wotSearch.getPlayer(accountId).then(onPlayerComplete, onError);
 		};
 
 		$scope.player = null;
 		$scope.clan = null;
-		
-		getPlayerInformation(accountid);
-    };
+
+		getPlayerInformation(accountId);
+	};
 
     app.controller("PlayerInfoController", [
-    	"$scope", "$location", "$routeParams", "wotSearch", 
+    	"$scope", "$log", "$routeParams", "wotSearch",
     	PlayerInfoController]);
 
 }()); 

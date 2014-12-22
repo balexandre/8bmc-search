@@ -39,10 +39,9 @@
                 <td>{{player.global_rating | number}}</td>
             </tr>
         </table></div>
-    </div>
-    <div class="col-md-4">
-        <h2>Statistics</h2>
+        <p>&nbsp;</p>
 
+        <h4>Top damage, kills and xp</h4>
         <div class="table-responsive">
         <table class="table">
             <tr>
@@ -66,14 +65,14 @@
                 <td>Max Experience ID</td>
                 <td class="text-center">{{player.statistics.max_xp | number}}</td>
                 <td>
-                	<a href="javascript:void;" class="pop" data-container="body" data-toggle="popover" data-trigger="hover" data-placement="top" 
-            		   data-content="<img src='{{tanks.max_xp_tank.image}}' />" data-html="true">
-                		{{tanks.max_xp_tank.name_i18n}} ({{tanks.max_xp_tank.level}})</a></td>
+                    <a href="javascript:void;" class="pop" data-container="body" data-toggle="popover" data-trigger="hover" data-placement="top"
+                       data-content="<img src='{{tanks.max_xp_tank.image}}' />" data-html="true">
+                        {{tanks.max_xp_tank.name_i18n}} ({{tanks.max_xp_tank.level}})</a></td>
             </tr>
         </table></div>
         <p>&nbsp;</p>
 
-        <h4>Win rates</h4>
+        <h4>Win rates &amp; battles</h4>
         <div class="table-responsive">
         <table class="table">
             <tr>
@@ -98,9 +97,49 @@
             </tr>
         </table></div>
 	</div>
-    <div class="col-md-4">
-        <h2>Vehicles <small>in the garage</small></h2>
+    <div class="col-md-8">
+        <h2>Vehicles <small>{{garage.length}} found</small></h2>
 
-        <em class="darker">Current issues with Wargamming API prevents showing this information.</em>
+        <div class="table-responsive">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <td>Nation</td>
+                        <td>Type</td>
+                        <td>Name</td>
+                        <td class="text-center">Tier</td>
+                        <td class="text-center">Win rate (battles)</td>
+                        <td class="text-center">Mastery</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="tank in garage | orderBy:['-extraInfo.level','extraInfo.nation_i18n','extraInfo.type_i18n']"
+                        ng-class="ingarage">
+                        <td>{{tank.extraInfo.nation_i18n}}</td>
+                        <td>{{tank.extraInfo.type_i18n}}</td>
+                        <td>
+                            <!-- Tank id: {{tank.tank_id}} -->
+                            <a href="javascript:void;" class="pop" data-container="body" data-toggle="popover" data-trigger="hover" data-placement="top"
+                               data-content="<img src='{{tank.extraInfo.image}}' />" data-html="true">
+                                {{tank.extraInfo.name_i18n}}</a></td>
+                        <td class="text-center">{{tank.extraInfo.level}}</td>
+                        <td class="text-center">{{tank.statistics.wins / tank.statistics.battles | percentage}} ({{tank.statistics.battles | kilos}})</td>
+                        <td class="text-center">
+                            <div class="animate-switch-container"
+                                 ng-switch on="tank.mark_of_mastery">
+                                <div class="animate-switch" ng-switch-when="0">
+                                    –
+                                </div>
+                                <div class="animate-switch" ng-switch-when="4">
+                                    <img ng-src="http://worldoftanks.eu/static/3.24.0.2/common/img/classes/class-ace.png" />
+                                </div>
+                                <div class="animate-switch" ng-switch-default>
+                                    <img ng-src="http://worldoftanks.eu/static/3.24.0.2/common/img/classes/class-{{tank.mark_of_mastery}}.png" />
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table></div>
     </div>
 </div>
