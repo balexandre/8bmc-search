@@ -122,7 +122,7 @@
 			$location.path("/players/" + nickname);
 		};
 
-		$scope.playerSortOrder = "+extraInfo.global_rating";
+		$scope.playerSortOrder = "-extraInfo.global_rating";
 		$scope.playersAndClans = {};
 
 		// search
