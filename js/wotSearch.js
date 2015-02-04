@@ -23,7 +23,7 @@
         var urlClanSearch = "http://api.worldoftanks.eu/wot/clan/list/?application_id=" + applicationId + "&search=",
           urlPlayerSearch = "http://api.worldoftanks.eu/wot/account/list/?application_id=" + applicationId + "&search=";
 
-        var fieldsPlayerLang = ["client_language"],
+        var fieldsPlayerLang = ["client_language","logout_at"],
             fieldsPlayerInfo = [""],// TODO: use fields to speed up the player information
             fieldsTankInfo = ["image","level","name_i18n","type_i18n","nation_i18n","tank_id"];
 
