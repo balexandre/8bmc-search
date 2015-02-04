@@ -39,23 +39,27 @@
     </div>
     <div class="col-md-8">
         <h2>Military Personnel <small>({{clan.members_count}})</small></h2>
-
+        
         <div class="table-responsive">
-        <table class="table">
+        <table class="table table-clan-members">
             <thead>
                 <tr>
-                    <th>ID</th>
+                    <th class="pointer" ng-click="predicate='account_id'; reverse=!reverse">ID <i class="fa" ng-class="{'fa-angle-up': predicate==='account_id' && !reverse, 'fa-angle-down': predicate==='account_id' && reverse}"></i></th>
                     <th></th>
-                    <th>Player</th>
-                    <th>Position</th>
-                    <th>Since</th>
+                    <th class="pointer" ng-click="predicate='account_name'; reverse=!reverse">Player <i class="fa" ng-class="{'fa-angle-up': predicate==='account_name' && !reverse, 'fa-angle-down': predicate==='account_name' && reverse}"></i></th>
+                    <th class="pointer" ng-click="predicate='role_i18n'; reverse=!reverse">Position <i class="fa" ng-class="{'fa-angle-up': predicate==='role_i18n' && !reverse, 'fa-angle-down': predicate==='role_i18n' && reverse}"></i></th>
+                    <th class="pointer" ng-click="predicate='created_at'; reverse=!reverse">Since <i class="fa" ng-class="{'fa-angle-up': predicate==='created_at' && !reverse, 'fa-angle-down': predicate==='created_at' && reverse}"></i></th>
+                    <th class="pointer" ng-click="predicate='logout_at'; reverse=!reverse">Last login <i class="fa" ng-class="{'fa-angle-up': predicate==='logout_at' && !reverse, 'fa-angle-down': predicate==='logout_at' && reverse}"></i></th>
                 </tr>
             </thead>
             <tbody>
-                <tr ng-class="{warning: clan.owner_id == member.account_id}" ng-repeat="member in clan.members">
-                    <td>{{member.account_id}}</td>
+                <tr ng-class="{warning: clan.owner_id == member.account_id}" 
+                    ng-repeat="member in clan.members | object2Array | orderBy:predicate:reverse">
+                    <td>
+                        {{member.account_id}}
+                    </td>
                     <td class="f16">
-                        <i class="flag {{extraInfo[member.account_id].client_language}}"></i> {{extraInfo[member.account_id].client_language}}
+                        <i class="flag {{member.client_language}}"></i> {{member.client_language}}
                     </td>
                     <td>
                         <span ng-show="clan.owner_id == member.account_id"><i class="fa fa-star" title="Clan Owner"></i>&nbsp;</span>
@@ -64,8 +68,14 @@
                         <span class="epaulettes">
                         <!--[if IE 8]><object ng-src="http://eu.wargaming.net/clans/static/0.1.0/images/epaulettes/{{member.role_i18n | lowerAndNoSpaces}}.svg" classid="image/svg+xml"></object><![endif]-->
                         <!--[if gte IE 9]><!--><img class="svg-icon" ng-src="http://eu.wargaming.net/clans/static/0.1.0/images/epaulettes/{{member.role_i18n | lowerAndNoSpaces}}.svg" alt=""><!--<![endif]-->
-                    </span> {{member.role_i18n}}</td>
-                    <td>{{member.created_at | fromNow}}</td>
+                        </span> {{member.role_i18n}}
+                    </td>
+                    <td>
+                        <span data-toggle="tooltip" data-placement="top" title="{{member.created_at | fromNowDisplay}}">{{member.created_at | fromNow}}</span>
+                    </td>
+                    <td>
+                        <span data-toggle="tooltip" data-placement="top" title="{{member.logout_at | fromNowDisplayWithTime}}">{{member.logout_at | fromNow}}</span>
+                    </td>
                 </tr>
             </tbody>
         </table></div>
