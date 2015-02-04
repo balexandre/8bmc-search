@@ -75,6 +75,8 @@
 
 		$scope.player = null;
 		$scope.clan = null;
+        $scope.predicate = 'extraInfo.level';
+        $scope.reverse = true;
 
 		getPlayerInformation(accountId);
 	};

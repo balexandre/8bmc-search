@@ -99,47 +99,56 @@
 	</div>
     <div class="col-md-8">
         <h2>Vehicles <small>{{garage.length}} found</small></h2>
-
+        
         <div class="table-responsive">
-            <table class="table">
-                <thead>
-                    <tr>
-                        <td>Nation</td>
-                        <td>Type</td>
-                        <td>Name</td>
-                        <td class="text-center">Tier</td>
-                        <td class="text-center">Win rate (battles)</td>
-                        <td class="text-center">Mastery</td>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr ng-repeat="tank in garage | orderBy:['-extraInfo.level','extraInfo.nation_i18n','extraInfo.type_i18n']"
-                        ng-class="ingarage">
-                        <td>{{tank.extraInfo.nation_i18n}}</td>
-                        <td>{{tank.extraInfo.type_i18n}}</td>
-                        <td>
-                            <!-- Tank id: {{tank.tank_id}} -->
-                            <a href="javascript:void;" class="pop" data-container="body" data-toggle="popover" data-trigger="hover" data-placement="top"
-                               data-content="<img src='{{tank.extraInfo.image}}' />" data-html="true">
-                                {{tank.extraInfo.name_i18n}}</a></td>
-                        <td class="text-center">{{tank.extraInfo.level}}</td>
-                        <td class="text-center">{{tank.statistics.wins / tank.statistics.battles | percentage}} ({{tank.statistics.battles | kilos}})</td>
-                        <td class="text-center">
-                            <div class="animate-switch-container"
-                                 ng-switch on="tank.mark_of_mastery">
-                                <div class="animate-switch" ng-switch-when="0">
-                                    –
-                                </div>
-                                <div class="animate-switch" ng-switch-when="4">
-                                    <img ng-src="http://worldoftanks.eu/static/3.24.0.2/common/img/classes/class-ace.png" />
-                                </div>
-                                <div class="animate-switch" ng-switch-default>
-                                    <img ng-src="http://worldoftanks.eu/static/3.24.0.2/common/img/classes/class-{{tank.mark_of_mastery}}.png" />
-                                </div>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th class="pointer text-left" ng-click="predicate='extraInfo.nation_i18n'; reverse=!reverse">Nation <i class="fa" ng-class="{'fa-angle-up': predicate==='extraInfo.nation_i18n' && !reverse, 'fa-angle-down': predicate==='extraInfo.nation_i18n' && reverse}"></i></th>
+                    <th class="pointer text-left" ng-click="predicate='extraInfo.type_i18n'; reverse=!reverse">Type <i class="fa" ng-class="{'fa-angle-up': predicate==='extraInfo.type_i18n' && !reverse, 'fa-angle-down': predicate==='extraInfo.type_i18n' && reverse}"></i></th>
+                    <th>Name</th>
+                    <th class="pointer text-center" ng-click="predicate='extraInfo.level'; reverse=!reverse">Tier <i class="fa" ng-class="{'fa-angle-up': predicate==='extraInfo.level' && !reverse, 'fa-angle-down': predicate==='extraInfo.level' && reverse}"></i></th>
+                    <th class="pointer text-center" ng-click="predicate='statistics.battles'; reverse=!reverse">Win rate (battles) <i class="fa" ng-class="{'fa-angle-up': predicate==='statistics.battles' && !reverse, 'fa-angle-down': predicate==='statistics.battles' && reverse}"></i></th>
+                    <th class="pointer text-center" ng-click="predicate='mark_of_mastery'; reverse=!reverse">Mastery <i class="fa" ng-class="{'fa-angle-up': predicate==='mark_of_mastery' && !reverse, 'fa-angle-down': predicate==='mark_of_mastery' && reverse}"></i></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="tank in garage | object2Array | orderBy:predicate:reverse"
+                    ng-class="ingarage">
+                    <td>
+                        {{tank.extraInfo.nation_i18n}}
+                    </td>
+                    <td>
+                        {{tank.extraInfo.type_i18n}}
+                    </td>
+                    <td>
+                        <!-- Tank id: {{tank.tank_id}} -->
+                        <a href="javascript:void;" class="pop" data-container="body" data-toggle="popover" data-trigger="hover" data-placement="top"
+                            data-content="<img src='{{tank.extraInfo.image}}' />" data-html="true">
+                            {{tank.extraInfo.name_i18n}}</a>
+                    </td>
+                    <td class="text-center">
+                        {{tank.extraInfo.level}}
+                    </td>
+                    <td class="text-center">
+                        {{tank.statistics.wins / tank.statistics.battles | percentage}} ({{tank.statistics.battles | kilos}})
+                    </td>
+                    <td class="text-center">
+                        <div class="animate-switch-container"
+                                ng-switch on="tank.mark_of_mastery">
+                            <div class="animate-switch" ng-switch-when="0">
+                                –
                             </div>
-                        </td>
-                    </tr>
-                </tbody>
-            </table></div>
+                            <div class="animate-switch" ng-switch-when="4">
+                                <img ng-src="http://worldoftanks.eu/static/3.24.0.2/common/img/classes/class-ace.png" />
+                            </div>
+                            <div class="animate-switch" ng-switch-default>
+                                <img ng-src="http://worldoftanks.eu/static/3.24.0.2/common/img/classes/class-{{tank.mark_of_mastery}}.png" />
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table></div>
     </div>
 </div>
